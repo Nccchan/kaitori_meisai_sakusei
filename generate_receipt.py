@@ -18,12 +18,13 @@ from reportlab.platypus.flowables import HRFlowable
 
 # ─────────────────────────────────────────────
 # 発行者情報（固定）
+# 住所は非表示（2026-09-20・偽Googleリスティングが登記住所（バーチャルオフィス・公共施設の建物）へ
+# 来訪者を誘導し、施設側に実害が出ている件の対策。org repo output/reports/2026-09-20_登記住所_露出点検.md #1-3）。
 # ─────────────────────────────────────────────
 ISSUER = {
-    "name":    "株式会社AiGIVE",
-    "zip":     "940-0062",
-    "address": "新潟県長岡市大手通2−2−6",
-    "tel":     "",          # 必要なら追加
+    "name":       "株式会社AiGIVE",
+    "disclosure": "所在地: 請求があれば遅滞なく開示します",
+    "tel":        "",          # 必要なら追加
     "invoice_no": "T5110001038461",
 }
 
@@ -203,7 +204,7 @@ def generate_receipt(
         [p("支払通知書番号", size=8), p(receipt_number, size=9)],
         [p("", size=8), p("")],
         [p("発行者", size=8), p(ISSUER["name"], size=9, bold=True)],
-        [p("", size=8), p(f"〒{ISSUER['zip']}　{ISSUER['address']}", size=8)],
+        [p("", size=8), p(ISSUER["disclosure"], size=8)],
         [p("適格請求書番号", size=7), p(ISSUER["invoice_no"], size=8)],
     ]
     right_tbl = Table(right_block, colWidths=[W * 0.2, W * 0.25])
